@@ -1,0 +1,49 @@
+{
+  materials: [
+    {
+      name: 'Default_OBJ.007',
+      parameters: [
+        {
+          baseColor: 'Pikachu',
+        },
+        {
+          baseColorTint: [
+            0.80000000000000004,
+            0.80000000000000004,
+            0.80000000000000004,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 0.093865000000000004,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/pikachu/Pikachu_A.obj',
+    name: 'Pikachu_A',
+    recenter: 'root',
+  },
+  samplers: [
+    {
+      file: 'sampledata/pikachu/Pikachu.png',
+      name: 'Pikachu',
+      pipeline_name: 'Pikachu.png',
+    },
+  ],
+  version: '0.54:2',
+}

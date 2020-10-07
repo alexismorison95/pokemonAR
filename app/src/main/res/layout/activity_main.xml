@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:animateLayoutChanges="true">
 
     <fragment
         android:layout_width="match_parent"
@@ -13,52 +14,118 @@
         android:id="@+id/ar_fragment_view"
         android:name="com.google.ar.sceneform.ux.ArFragment"/>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorLinearBack"
-        android:padding="10dp">
+        android:background="@drawable/round_background"
+        android:id="@+id/grid_pokemon"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="meowth"
-                android:id="@+id/btn_meowth"/>
+                android:background="@drawable/ic_baseline_close_24"
+                android:layout_gravity="end"
+                android:id="@+id/btn_grid_close"/>
 
-            <Button
+            <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="charmander"
-                android:id="@+id/btn_charmander"/>
+                android:columnCount="2"
+                android:padding="10dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="charmander"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_charmander"
+                    android:id="@+id/btn_charmander"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="charmander"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_meowth"
+                    android:id="@+id/btn_meowth"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="charmander"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_pikachu_2"
+                    android:id="@+id/btn_pikachu"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="charmander"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"
+                    android:id="@+id/btn_bullbasaur"/>
+
+            </GridLayout>
 
         </LinearLayout>
 
-    </HorizontalScrollView>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:background="@color/colorLinearBack"
+        android:padding="10dp"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_pokebola"
+            android:id="@+id/btn_pokebola"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:animateLayoutChanges="true">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_background"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            android:id="@+id/frame_btn_delete">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_delete_24"
+                android:id="@+id/btn_delete_model"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_background"
+            android:padding="5dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_more_vert_24" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
