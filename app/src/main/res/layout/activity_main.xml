@@ -21,7 +21,8 @@
         android:id="@+id/grid_pokemon"
         android:layout_gravity="center_vertical|center_horizontal"
         android:padding="10dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_marginVertical="70dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,6 +66,56 @@
                     android:background="@drawable/ic_bullbasaur"
                     android:id="@+id/btn_bullbasaur"/>
 
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bullbasaur"/>
+
             </GridLayout>
 
         </LinearLayout>
@@ -72,13 +123,14 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:background="@color/colorLinearBack"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@drawable/round_background"
         android:padding="10dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp">
 
         <ImageButton
             android:layout_width="wrap_content"

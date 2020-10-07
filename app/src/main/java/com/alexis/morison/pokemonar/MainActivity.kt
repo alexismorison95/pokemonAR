@@ -14,7 +14,7 @@ import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var arFragment: ArFragment
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btnMeowth: ImageButton
     private lateinit var btnCharmander: ImageButton
-    private lateinit var btnbulbasaur: ImageButton
+    private lateinit var btnBulbasaur: ImageButton
     private lateinit var btnPikachu: ImageButton
 
     private var gridVisible: Boolean = false
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         btnMeowth = btn_meowth
         btnCharmander = btn_charmander
         btnPikachu = btn_pikachu
-        btnbulbasaur = btn_bullbasaur
+        btnBulbasaur = btn_bullbasaur
     }
 
     private fun setListeners() {
@@ -80,53 +80,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnPokebola.setOnClickListener {
-
-            if (gridVisible) {
-
-                gridLayoutPokemon.visibility = View.GONE
-                gridVisible = !gridVisible
-            }
-            else {
-
-                gridLayoutPokemon.visibility = View.VISIBLE
-                gridVisible = !gridVisible
-            }
-        }
-
-        btnGridClose.setOnClickListener {
-
-            gridLayoutPokemon.visibility = View.GONE
-            gridVisible = false
-        }
-
-        btnMeowth.setOnClickListener {
-
-            pokemonSelect = PokemonType.MEOWTH
-
-            Toast.makeText(this, "Meowth seleccionado", Toast.LENGTH_SHORT).show()
-        }
-
-        btnCharmander.setOnClickListener {
-
-            pokemonSelect = PokemonType.CHARMANDER
-
-            Toast.makeText(this, "Charmander seleccionado", Toast.LENGTH_SHORT).show()
-        }
-
-        btnPikachu.setOnClickListener {
-
-            pokemonSelect = PokemonType.PIKACHU
-
-            Toast.makeText(this, "Pikachu seleccionado", Toast.LENGTH_SHORT).show()
-        }
-
-        btnbulbasaur.setOnClickListener {
-
-            pokemonSelect = PokemonType.BULBASAUR
-
-            Toast.makeText(this, "Bulbasaur seleccionado", Toast.LENGTH_SHORT).show()
-        }
+        btnPokebola.setOnClickListener { onClick(btnPokebola) }
+        btnGridClose.setOnClickListener { onClick(btnGridClose) }
+        btnMeowth.setOnClickListener { onClick(btnMeowth) }
+        btnCharmander.setOnClickListener { onClick(btnCharmander) }
+        btnPikachu.setOnClickListener { onClick(btnPikachu) }
+        btnBulbasaur.setOnClickListener { onClick(btnBulbasaur) }
     }
 
     private fun makeModel(anchor: Anchor, name: String) {
@@ -152,10 +111,14 @@ class MainActivity : AppCompatActivity() {
         val anchorNode = AnchorNode(anchor)
         val transformableNode = TransformableNode(arFragment.transformationSystem)
 
+        transformableNode.scaleController.maxScale = 2.0f
+        transformableNode.scaleController.minScale = 0.2f
+
         transformableNode.setParent(anchorNode)
         transformableNode.renderable = modelRenderable
 
         arFragment.arSceneView.scene.addChild(anchorNode)
+
         transformableNode.select()
 
         transformableNode.setOnTapListener { hitTestResult, _ ->
@@ -165,11 +128,43 @@ class MainActivity : AppCompatActivity() {
             btnDeleteModel.setOnClickListener {
 
                 val nodeToRemove = hitTestResult.node
-
                 anchorNode.removeChild(nodeToRemove)
-
                 frameBtnDelete.visibility = View.GONE
             }
+        }
+    }
+
+    override fun onClick(view: View?) {
+
+        when (view?.id) {
+
+            // Abrir y cerrar menu para elegir pokemon
+            R.id.btn_pokebola -> {
+                if (gridVisible) {
+                    gridLayoutPokemon.visibility = View.GONE
+                    gridVisible = !gridVisible
+                }
+                else {
+                    gridLayoutPokemon.visibility = View.VISIBLE
+                    gridVisible = !gridVisible
+                }
+            }
+
+            // Cerrar menu para elegir pokemon
+            R.id.btn_grid_close -> {
+                gridLayoutPokemon.visibility = View.GONE
+                gridVisible = false
+            }
+
+            // Btns de Pokemones
+            R.id.btn_meowth -> pokemonSelect = PokemonType.MEOWTH
+
+            R.id.btn_charmander -> pokemonSelect = PokemonType.CHARMANDER
+
+            R.id.btn_pikachu -> pokemonSelect = PokemonType.PIKACHU
+
+            R.id.btn_bullbasaur -> pokemonSelect = PokemonType.BULBASAUR
+
         }
     }
 }
