@@ -54,15 +54,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun setViews() {
 
         arFragment = ar_fragment_view as ArFragment
+
         btnPokebola = btn_pokebola
-        gridLayoutPokemon = grid_pokemon
-        btnGridClose = btn_grid_close
         frameBtnDelete = frame_btn_delete
         btnDeleteModel = btn_delete_model
-        btnMeowth = btn_meowth
-        btnCharmander = btn_charmander
-        btnPikachu = btn_pikachu
-        btnBulbasaur = btn_bullbasaur
+
+        gridLayoutPokemon = findViewById(R.id.grid_pokemon)
+        btnGridClose = findViewById(R.id.btn_grid_close)
+        btnMeowth = findViewById(R.id.btn_meowth)
+        btnCharmander = findViewById(R.id.btn_charmander)
+        btnPikachu = findViewById(R.id.btn_pikachu)
+        btnBulbasaur = findViewById(R.id.btn_bullbasaur)
     }
 
     private fun setListeners() {
