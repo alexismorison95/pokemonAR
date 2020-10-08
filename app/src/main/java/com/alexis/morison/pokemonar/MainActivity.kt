@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     // Para poder acceder desde el Adapter
     companion object {
 
-        var pokemonSelect: PokemonType = PokemonType.CHARMANDER
+        var pokemonModel: String = "Charmander"
 
         private lateinit var recyclerView: RecyclerView
         private var gridVisible: Boolean = false
@@ -73,13 +73,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             val anchor = hitResult.createAnchor()
 
-            when (pokemonSelect) {
-
-                PokemonType.CHARMANDER -> makeModel(anchor, "charmander")
-                PokemonType.MEOWTH -> makeModel(anchor, "meowth")
-                PokemonType.PIKACHU -> makeModel(anchor, "pikachu")
-                PokemonType.BULBASAUR -> makeModel(anchor, "bulbasaur")
-            }
+            makeModel(anchor, pokemonModel)
         }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
@@ -88,13 +82,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun setRecyclerView() {
 
         val listaPokemones = listOf(
-            Pokemon("Bulbasaur", PokemonType.BULBASAUR, R.drawable.ic_bullbasaur),
-            Pokemon("Charmander", PokemonType.CHARMANDER, R.drawable.ic_charmander),
-            Pokemon("Meowth", PokemonType.MEOWTH, R.drawable.ic_meowth),
-            Pokemon("Pikachu", PokemonType.PIKACHU, R.drawable.ic_pikachu_2)
+            Pokemon("Bellsprout", R.drawable.ic_bellsprout),
+            Pokemon("Bulbasaur", R.drawable.ic_bullbasaur),
+            Pokemon("Caterpie", R.drawable.ic_caterpie),
+            Pokemon("Charmander", R.drawable.ic_charmander),
+            Pokemon("Dratini", R.drawable.ic_dratini),
+            Pokemon("Eevee", R.drawable.ic_eevee),
+            Pokemon("Egg", R.drawable.ic_egg),
+            Pokemon("Meowth", R.drawable.ic_meowth),
+            Pokemon("Mew", R.drawable.ic_mew),
+            Pokemon("Pikachu", R.drawable.ic_pikachu_2),
+            Pokemon("Pikachu2", R.drawable.ic_pikachu_2),
+            Pokemon("Psyduck", R.drawable.ic_psyduck),
+            Pokemon("Rattata", R.drawable.ic_rattata),
+            Pokemon("Squirtle", R.drawable.ic_squirtle),
+            Pokemon("Weedle", R.drawable.ic_weedle),
+            Pokemon("Zubat", R.drawable.ic_zubat),
         )
 
-        viewManager = GridLayoutManager(this, 2)
+        viewManager = GridLayoutManager(this, 3)
         viewAdapter = RecyclerAdapterPokemons(listaPokemones)
 
         recyclerView.apply {
@@ -112,7 +118,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ModelRenderable.builder()
             .setSource(this, Uri.parse("${name}.sfb"))
             .build()
-            .thenAccept { placeModel(anchor, it, name) }
+            .thenAccept { placeModel(anchor, it) }
             .exceptionally {
 
                 val builder = AlertDialog.Builder(this)
@@ -125,7 +131,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    private fun placeModel(anchor: Anchor, modelRenderable: ModelRenderable, name: String) {
+    private fun placeModel(anchor: Anchor, modelRenderable: ModelRenderable) {
 
         val anchorNode = AnchorNode(anchor)
         val transformableNode = TransformableNode(arFragment.transformationSystem)

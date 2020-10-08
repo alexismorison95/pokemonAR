@@ -1,0 +1,49 @@
+{
+  materials: [
+    {
+      name: 'Default_OBJ',
+      parameters: [
+        {
+          baseColor: 'Squirtle',
+        },
+        {
+          baseColorTint: [
+            0.80000000000000004,
+            0.80000000000000004,
+            0.80000000000000004,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 0.408248,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/squirtle/Squirtle.obj',
+    name: 'Squirtle',
+    recenter: 'root',
+  },
+  samplers: [
+    {
+      file: 'sampledata/squirtle/Squirtle.png',
+      name: 'Squirtle',
+      pipeline_name: 'Squirtle.png',
+    },
+  ],
+  version: '0.54:2',
+}

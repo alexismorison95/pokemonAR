@@ -36,7 +36,7 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
 
                 item_image_btn.setOnClickListener {
 
-                    MainActivity.pokemonSelect = item.tipo
+                    MainActivity.pokemonModel = item.nombre
 
                     MainActivity.quitarRecycler()
 

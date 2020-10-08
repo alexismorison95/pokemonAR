@@ -51,21 +51,82 @@ apply plugin: 'com.google.ar.sceneform.plugin'
 sceneform.asset('sampledata/meowth/Meowth_.obj',
         'default',
         'sampledata/meowth/Meowth_.sfa',
-        'src/main/assets/meowth')
+        'src/main/assets/Meowth')
 
 sceneform.asset('sampledata/charmander/Charmander.obj',
         'default',
         'sampledata/charmander/Charmander.sfa',
-        'src/main/assets/charmander')
+        'src/main/assets/Charmander')
 
 sceneform.asset('sampledata/bulbasaur/Bulbasaur.dae',
         'default',
         'sampledata/bulbasaur/Bulbasaur.sfa',
-        'src/main/assets/bulbasaur')
+        'src/main/assets/Bulbasaur')
 
 sceneform.asset('sampledata/pikachu/Pikachu_A.obj',
         'default',
         'sampledata/pikachu/Pikachu_A.sfa',
-        'src/main/assets/pikachu')
+        'src/main/assets/Pikachu')
 
-*/
+sceneform.asset('sampledata/squirtle/Squirtle.obj',
+        'default',
+        'sampledata/squirtle/Squirtle.sfa',
+        'src/main/assets/Squirtle')
+
+sceneform.asset('sampledata/caterpie/Caterpie_.obj',
+        'default',
+        'sampledata/caterpie/Caterpie_.sfa',
+        'src/main/assets/Caterpie')
+
+sceneform.asset('sampledata/weedle/Weedle_.obj',
+        'default',
+        'sampledata/weedle/Weedle_.sfa',
+        'src/main/assets/Weedle')
+
+sceneform.asset('sampledata/rattata/Rattata_.obj',
+        'default',
+        'sampledata/rattata/Rattata_.sfa',
+        'src/main/assets/Rattata')
+
+sceneform.asset('sampledata/pikachu2/Pikachu_B.obj',
+        'default',
+        'sampledata/pikachu2/Pikachu_B.sfa',
+        'src/main/assets/Pikachu2')
+
+sceneform.asset('sampledata/zubat/Zubat_.obj',
+        'default',
+        'sampledata/zubat/Zubat_.sfa',
+        'src/main/assets/Zubat')
+
+sceneform.asset('sampledata/psyduck/Psyduck_.obj',
+        'default',
+        'sampledata/psyduck/Psyduck_.sfa',
+        'src/main/assets/Psyduck')
+
+sceneform.asset('sampledata/bellsprout/Bellsprout_.obj',
+        'default',
+        'sampledata/bellsprout/Bellsprout_.sfa',
+        'src/main/assets/Bellsprout')
+
+sceneform.asset('sampledata/eevee/Eevee_.obj',
+        'default',
+        'sampledata/eevee/Eevee_.sfa',
+        'src/main/assets/Eevee')
+
+
+sceneform.asset('sampledata/datrini/Dratini.dae',
+        'default',
+        'sampledata/datrini/Dratini.sfa',
+        'src/main/assets/Dratini')
+
+sceneform.asset('sampledata/mew/Mew.obj',
+        'default',
+        'sampledata/mew/Mew.sfa',
+        'src/main/assets/Mew')
+
+sceneform.asset('sampledata/eggs/Egg_A.dae',
+        'default',
+        'sampledata/eggs/Egg_A.sfa',
+        'src/main/assets/Egg')
+
+ */

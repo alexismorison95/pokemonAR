@@ -24,7 +24,8 @@
         android:background="@drawable/round_background"
         android:padding="10dp"
         android:visibility="gone"
-        android:layout_marginVertical="70dp"/>
+        android:layout_marginVertical="70dp"
+        android:layout_marginHorizontal="10dp"/>
 
 
     <LinearLayout
