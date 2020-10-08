@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera.ar" android:required="true"/>
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature android:name="com.google.ar.core.depth" />
 
     <application
         android:allowBackup="true"

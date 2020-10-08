@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ar_fragment_view"
-        android:name="com.google.ar.sceneform.ux.ArFragment"/>
+        android:name="com.alexis.morison.pokemonar.Clases.CustomArFragment"/>
 
     <include layout="@layout/grid_pokemons"/>
 
@@ -29,7 +29,8 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_pokebola"
+            android:src="@drawable/ic_pokebola"
+            android:background="@drawable/image_btn_background"
             android:id="@+id/btn_pokebola"/>
 
     </LinearLayout>
@@ -54,7 +55,8 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_baseline_delete_24"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:background="@drawable/image_btn_background"
                 android:id="@+id/btn_delete_model"/>
 
         </FrameLayout>
@@ -68,7 +70,8 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_baseline_more_vert_24" />
+                android:src="@drawable/ic_baseline_more_vert_24"
+                android:background="@drawable/image_btn_background"/>
 
         </FrameLayout>
 

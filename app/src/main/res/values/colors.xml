@@ -5,4 +5,5 @@
     <color name="colorAccent">#DFDFDF</color>
     <color name="colorLinearBack">#52000000</color>
     <color name="colorWhiteGris">#DFFFFFFF</color>
+    <color name="colorTransparente">#00000000</color>
 </resources>

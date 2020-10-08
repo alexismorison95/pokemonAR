@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
+import com.alexis.morison.pokemonar.Clases.CustomArFragment
 import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var pokemonSelect: PokemonType = PokemonType.CHARMANDER
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setViews() {
 
-        arFragment = ar_fragment_view as ArFragment
+        arFragment = ar_fragment_view as CustomArFragment
 
         btnPokebola = btn_pokebola
         frameBtnDelete = frame_btn_delete
@@ -131,6 +132,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 val nodeToRemove = hitTestResult.node
                 anchorNode.removeChild(nodeToRemove)
+
                 frameBtnDelete.visibility = View.GONE
             }
         }
@@ -158,15 +160,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 gridVisible = false
             }
 
-            // Btns de Pokemones
-            R.id.btn_meowth -> pokemonSelect = PokemonType.MEOWTH
+            else -> {
 
-            R.id.btn_charmander -> pokemonSelect = PokemonType.CHARMANDER
+                when (view?.id) {
 
-            R.id.btn_pikachu -> pokemonSelect = PokemonType.PIKACHU
+                    // Btns de Pokemones
+                    R.id.btn_meowth -> pokemonSelect = PokemonType.MEOWTH
 
-            R.id.btn_bullbasaur -> pokemonSelect = PokemonType.BULBASAUR
+                    R.id.btn_charmander -> pokemonSelect = PokemonType.CHARMANDER
 
+                    R.id.btn_pikachu -> pokemonSelect = PokemonType.PIKACHU
+
+                    R.id.btn_bullbasaur -> pokemonSelect = PokemonType.BULBASAUR
+                }
+
+                Toast.makeText(this, "Toque la pantalla para colocar", Toast.LENGTH_SHORT).show()
+
+                gridLayoutPokemon.visibility = View.GONE
+                gridVisible = false
+            }
         }
     }
+
+
 }
