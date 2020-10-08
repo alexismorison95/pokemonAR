@@ -12,9 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ar_fragment_view"
-        android:name="com.alexis.morison.pokemonar.Clases.CustomArFragment"/>
+        android:name="com.google.ar.sceneform.ux.ArFragment"/>
 
-    <include layout="@layout/grid_pokemons"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/round_background"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:layout_marginVertical="70dp"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"

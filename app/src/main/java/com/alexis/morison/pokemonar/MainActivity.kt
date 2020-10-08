@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import com.alexis.morison.pokemonar.Clases.CustomArFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.alexis.morison.pokemonar.adapters.RecyclerAdapterPokemons
+import com.alexis.morison.pokemonar.clases.Pokemon
+import com.alexis.morison.pokemonar.clases.PokemonType
 import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
@@ -20,27 +24,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var btnPokebola: ImageButton
 
-    private lateinit var gridLayoutPokemon: ScrollView
-    private lateinit var btnGridClose: ImageButton
     private lateinit var btnDeleteModel: ImageButton
     private lateinit var frameBtnDelete: FrameLayout
 
-    private lateinit var btnMeowth: ImageButton
-    private lateinit var btnCharmander: ImageButton
-    private lateinit var btnBulbasaur: ImageButton
-    private lateinit var btnPikachu: ImageButton
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private var gridVisible: Boolean = false
+    // Para poder acceder desde el Adapter
+    companion object {
 
-    private enum class PokemonType {
-        CHARMANDER,
-        MEOWTH,
-        PIKACHU,
-        BULBASAUR
+        var pokemonSelect: PokemonType = PokemonType.CHARMANDER
+
+        private lateinit var recyclerView: RecyclerView
+        private var gridVisible: Boolean = false
+
+        fun quitarRecycler() {
+            recyclerView.visibility = View.GONE
+            gridVisible = false
+        }
     }
-
-    private var pokemonSelect: PokemonType = PokemonType.CHARMANDER
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,22 +52,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setViews()
 
         setListeners()
+
+        setRecyclerView()
     }
 
     private fun setViews() {
 
-        arFragment = ar_fragment_view as CustomArFragment
+        arFragment = ar_fragment_view as ArFragment
 
         btnPokebola = btn_pokebola
         frameBtnDelete = frame_btn_delete
         btnDeleteModel = btn_delete_model
 
-        gridLayoutPokemon = findViewById(R.id.grid_pokemon)
-        btnGridClose = findViewById(R.id.btn_grid_close)
-        btnMeowth = findViewById(R.id.btn_meowth)
-        btnCharmander = findViewById(R.id.btn_charmander)
-        btnPikachu = findViewById(R.id.btn_pikachu)
-        btnBulbasaur = findViewById(R.id.btn_bullbasaur)
+        recyclerView = recycler_view
     }
 
     private fun setListeners() {
@@ -84,11 +83,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
-        btnGridClose.setOnClickListener { onClick(btnGridClose) }
-        btnMeowth.setOnClickListener { onClick(btnMeowth) }
-        btnCharmander.setOnClickListener { onClick(btnCharmander) }
-        btnPikachu.setOnClickListener { onClick(btnPikachu) }
-        btnBulbasaur.setOnClickListener { onClick(btnBulbasaur) }
+    }
+
+    private fun setRecyclerView() {
+
+        val listaPokemones = listOf(
+            Pokemon("Bulbasaur", PokemonType.BULBASAUR, R.drawable.ic_bullbasaur),
+            Pokemon("Charmander", PokemonType.CHARMANDER, R.drawable.ic_charmander),
+            Pokemon("Meowth", PokemonType.MEOWTH, R.drawable.ic_meowth),
+            Pokemon("Pikachu", PokemonType.PIKACHU, R.drawable.ic_pikachu_2)
+        )
+
+        viewManager = GridLayoutManager(this, 2)
+        viewAdapter = RecyclerAdapterPokemons(listaPokemones)
+
+        recyclerView.apply {
+
+            setHasFixedSize(true)
+
+            layoutManager = viewManager
+
+            adapter = viewAdapter
+        }
     }
 
     private fun makeModel(anchor: Anchor, name: String) {
@@ -144,40 +160,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             // Abrir y cerrar menu para elegir pokemon
             R.id.btn_pokebola -> {
+
                 if (gridVisible) {
-                    gridLayoutPokemon.visibility = View.GONE
+
+                    recyclerView.visibility = View.GONE
                     gridVisible = !gridVisible
                 }
                 else {
-                    gridLayoutPokemon.visibility = View.VISIBLE
+
+                    recyclerView.visibility = View.VISIBLE
                     gridVisible = !gridVisible
                 }
-            }
-
-            // Cerrar menu para elegir pokemon
-            R.id.btn_grid_close -> {
-                gridLayoutPokemon.visibility = View.GONE
-                gridVisible = false
-            }
-
-            else -> {
-
-                when (view?.id) {
-
-                    // Btns de Pokemones
-                    R.id.btn_meowth -> pokemonSelect = PokemonType.MEOWTH
-
-                    R.id.btn_charmander -> pokemonSelect = PokemonType.CHARMANDER
-
-                    R.id.btn_pikachu -> pokemonSelect = PokemonType.PIKACHU
-
-                    R.id.btn_bullbasaur -> pokemonSelect = PokemonType.BULBASAUR
-                }
-
-                Toast.makeText(this, "Toque la pantalla para colocar", Toast.LENGTH_SHORT).show()
-
-                gridLayoutPokemon.visibility = View.GONE
-                gridVisible = false
             }
         }
     }
