@@ -8,12 +8,12 @@ Para pode rejecutar la App es necesario tener un celular compatible con ARCore, 
 
 > https://developers.google.com/ar/discover/supported-devices
 
-Que es ARCore?
-
-[<img src="https://img.youtube.com/vi/ttdPqly4OF8/maxresdefault.jpg" width="50%">](https://youtu.be/ttdPqly4OF8)
-
 # Descargar APK
 
+Entrar al siguiente link:
+> https://github.com/alexismorison95/pokemonAR/blob/main/apk/Pokemon%20AR.apk
+
+Y descargar mediante el boton Download
 
 # Capturas
 
