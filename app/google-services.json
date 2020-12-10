@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "128296502852",
+    "project_id": "pokemon-ar-3252e",
+    "storage_bucket": "pokemon-ar-3252e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128296502852:android:15f9b0d471d3c18bbc1e11",
+        "android_client_info": {
+          "package_name": "com.alexis.morison.pokemonar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128296502852-6gl6ljjhmn90jtbq4oiosfphetrt0ra1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alexis.morison.pokemonar",
+            "certificate_hash": "aabfb911c985d5d003e10f41b5b15633a6b9a919"
+          }
+        },
+        {
+          "client_id": "128296502852-ekjb5ru025or1ct96bb18ttpmua527rb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkwfCxpJhQHPkhlHxbl68LTzZZQKlKOdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128296502852-ekjb5ru025or1ct96bb18ttpmua527rb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

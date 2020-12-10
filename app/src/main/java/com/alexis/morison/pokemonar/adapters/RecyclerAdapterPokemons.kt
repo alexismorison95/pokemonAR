@@ -37,6 +37,7 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
                 item_image_btn.setOnClickListener {
 
                     MainActivity.pokemonModel = item.nombre
+                    MainActivity.modelRef = MainActivity.storage.reference.child("${item.nombre}.sfb")
 
                     MainActivity.quitarRecycler()
 

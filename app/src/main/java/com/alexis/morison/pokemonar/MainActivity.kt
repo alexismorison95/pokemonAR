@@ -16,7 +16,11 @@ import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -30,10 +34,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+
+
     // Para poder acceder desde el Adapter
     companion object {
 
+        var storage = Firebase.storage
+
         var pokemonModel: String = "Charmander"
+        var modelRef = storage.reference.child("Charmander.sfb")
 
         private lateinit var recyclerView: RecyclerView
         private var gridVisible: Boolean = false
@@ -48,6 +57,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        FirebaseApp.initializeApp(this)
 
         setViews()
 
@@ -71,9 +82,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
 
-            val anchor = hitResult.createAnchor()
+            val file = File.createTempFile(pokemonModel, "sfb")
+            modelRef.getFile(file).addOnSuccessListener {
 
-            makeModel(anchor, pokemonModel)
+                val anchor = hitResult.createAnchor()
+
+                makeModel(anchor, pokemonModel, file)
+            }
         }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
@@ -97,7 +112,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Pokemon("Rattata", R.drawable.ic_rattata),
             Pokemon("Squirtle", R.drawable.ic_squirtle),
             Pokemon("Weedle", R.drawable.ic_weedle),
-            Pokemon("Zubat", R.drawable.ic_zubat),
+            Pokemon("Zubat", R.drawable.ic_zubat)
         )
 
         viewManager = GridLayoutManager(this, 3)
@@ -113,10 +128,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun makeModel(anchor: Anchor, name: String) {
+    private fun makeModel(anchor: Anchor, name: String, file: File) {
 
         ModelRenderable.builder()
-            .setSource(this, Uri.parse("${name}.sfb"))
+            //.setSource(this, Uri.parse("${name}.sfb"))
+            .setSource(this, Uri.parse(file.path))
             .build()
             .thenAccept { placeModel(anchor, it) }
             .exceptionally {
