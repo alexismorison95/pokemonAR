@@ -21,6 +21,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import com.google.firebase.storage.ktx.component1
+import com.google.firebase.storage.ktx.component2
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -34,7 +37,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    private val modelsDict = hashMapOf<String, File>()
 
+    private lateinit var progressBarModel: ProgressBar
 
     // Para poder acceder desde el Adapter
     companion object {
@@ -61,10 +66,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         FirebaseApp.initializeApp(this)
 
         setViews()
-
         setListeners()
-
         setRecyclerView()
+
+        val listRef = storage.reference
+
+        listRef.listAll()
+            .addOnSuccessListener { (items, _) ->
+
+                items.forEach { item ->
+                    println(item.name)
+                }
+            }
     }
 
     private fun setViews() {
@@ -76,18 +89,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnDeleteModel = btn_delete_model
 
         recyclerView = recycler_view
+
+        progressBarModel = progress_bar_model
     }
 
     private fun setListeners() {
 
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
 
-            val file = File.createTempFile(pokemonModel, "sfb")
-            modelRef.getFile(file).addOnSuccessListener {
+            val anchor = hitResult.createAnchor()
 
-                val anchor = hitResult.createAnchor()
+            // Chequeo si el modelo ya fue descargado
+            if (modelsDict.containsKey(pokemonModel)) {
 
-                makeModel(anchor, pokemonModel, file)
+                modelsDict[pokemonModel]?.let { makeModel(anchor, it) }
+            }
+            else {
+                progressBarModel.visibility = View.VISIBLE
+
+                val fileModel = File.createTempFile(pokemonModel, "sfb")
+                modelsDict[pokemonModel] = fileModel
+
+                modelRef.getFile(fileModel).addOnSuccessListener {
+
+                    progressBarModel.visibility = View.GONE
+
+                    makeModel(anchor, fileModel)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -121,14 +152,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.apply {
 
             setHasFixedSize(true)
-
             layoutManager = viewManager
-
             adapter = viewAdapter
         }
     }
 
-    private fun makeModel(anchor: Anchor, name: String, file: File) {
+    private fun makeModel(anchor: Anchor, file: File) {
 
         ModelRenderable.builder()
             //.setSource(this, Uri.parse("${name}.sfb"))
@@ -184,18 +213,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_pokebola -> {
 
                 if (gridVisible) {
-
                     recyclerView.visibility = View.GONE
                     gridVisible = !gridVisible
                 }
                 else {
-
                     recyclerView.visibility = View.VISIBLE
                     gridVisible = !gridVisible
                 }
             }
         }
     }
-
-
 }
