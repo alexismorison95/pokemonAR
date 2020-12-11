@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.pokemonar.adapters.RecyclerAdapterPokemons
 import com.alexis.morison.pokemonar.clases.Pokemon
-import com.alexis.morison.pokemonar.clases.PokemonType
 import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
@@ -118,6 +117,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    progressBarModel.visibility = View.GONE
                 }
             }
         }
@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Pokemon("Mew", R.drawable.ic_mew),
             Pokemon("Pikachu", R.drawable.ic_pikachu_2),
             Pokemon("Pikachu2", R.drawable.ic_pikachu_2),
+            Pokemon("Pokemon", R.drawable.ic_pokeballs),
             Pokemon("Psyduck", R.drawable.ic_psyduck),
             Pokemon("Rattata", R.drawable.ic_rattata),
             Pokemon("Squirtle", R.drawable.ic_squirtle),
@@ -223,4 +224,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
+
 }

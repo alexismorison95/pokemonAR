@@ -2,6 +2,8 @@
 
 Aplicación de realidad aumentada (RA) para Android desarrollada en Kotlin.
 
+    Voy agregando mas modelos...
+
 # Instalar Aplicación
 
 Para poder rejecutar la App es necesario tener un celular compatible con ARCore, lista completa de dispositivos compatibles en el siguiente link:
@@ -11,11 +13,17 @@ Para poder rejecutar la App es necesario tener un celular compatible con ARCore,
 # Descargar APK
 
 Entrar al siguiente link:
-> https://github.com/alexismorison95/pokemonAR/blob/main/apk/Pokemon%20AR.apk
+> https://github.com/alexismorison95/pokemonAR/blob/main/apk/Pokemon%20AR%20v2.apk
 
 Y descargar mediante el boton 
 
     Download
+
+
+# Modelos 3D
+
+> Los modelos 3D se pueden descargar en: https://www.models-resource.com/
+
 
 # Capturas
 

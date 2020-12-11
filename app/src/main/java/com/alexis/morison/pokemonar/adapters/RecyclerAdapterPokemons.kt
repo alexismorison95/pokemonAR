@@ -27,7 +27,7 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
     override fun getItemCount(): Int = listaPokemones.size
 
 
-    class ViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(private val v: View) : RecyclerView.ViewHolder(v) {
 
         fun bind(item: Pokemon) = with(v) {
 
@@ -41,9 +41,10 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
 
                     MainActivity.quitarRecycler()
 
-                    val toast = Toast.makeText(v.context, "Toque para agregar a ${item.nombre}", Toast.LENGTH_LONG)
+                    val toast = Toast.makeText(v.context, "Toque para agregar a ${item.nombre}", Toast.LENGTH_SHORT)
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
+
                 }
             }
     }
