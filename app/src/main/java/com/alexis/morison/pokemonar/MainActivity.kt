@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        this.cacheDir.deleteRecursively()
+
         FirebaseApp.initializeApp(this)
 
         setViews()
@@ -85,39 +87,38 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setListeners() {
 
-        setModelOnPlaneListener()
+        arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
+
+            val anchor = hitResult.createAnchor()
+            setModelOnPlane(anchor)
+        }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
     }
 
 
-    private fun setModelOnPlaneListener() {
+    private fun setModelOnPlane(anchor: Anchor) {
 
-        arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
+        // Chequeo si el modelo ya fue descargado
+        if (modelsDict.containsKey(storageModel.getPokemonSelected())) {
 
-            val anchor = hitResult.createAnchor()
+            modelsDict[storageModel.getPokemonSelected()]?.let { makeModel(anchor, it) }
+        }
+        else {
+            progressBarModel.visibility = View.VISIBLE
 
-            // Chequeo si el modelo ya fue descargado
-            if (modelsDict.containsKey(storageModel.getPokemonSelected())) {
+            val fileModel = File.createTempFile(storageModel.getPokemonSelected(), "sfb")
+            modelsDict[storageModel.getPokemonSelected()] = fileModel
 
-                modelsDict[storageModel.getPokemonSelected()]?.let { makeModel(anchor, it) }
+            storageModel.modelRef.getFile(fileModel).addOnSuccessListener {
+
+                progressBarModel.visibility = View.GONE
+
+                makeModel(anchor, fileModel)
             }
-            else {
-                progressBarModel.visibility = View.VISIBLE
-
-                val fileModel = File.createTempFile(storageModel.getPokemonSelected(), "sfb")
-                modelsDict[storageModel.getPokemonSelected()] = fileModel
-
-                storageModel.modelRef.getFile(fileModel).addOnSuccessListener {
-
-                    progressBarModel.visibility = View.GONE
-
-                    makeModel(anchor, fileModel)
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                    progressBarModel.visibility = View.GONE
-                }
+            .addOnFailureListener {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                progressBarModel.visibility = View.GONE
             }
         }
     }
@@ -140,7 +141,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun makeModel(anchor: Anchor, file: File) {
 
         ModelRenderable.builder()
-            //.setSource(this, Uri.parse("${name}.sfb"))
             .setSource(this, Uri.parse(file.path))
             .build()
             .thenAccept { placeModel(anchor, it) }
