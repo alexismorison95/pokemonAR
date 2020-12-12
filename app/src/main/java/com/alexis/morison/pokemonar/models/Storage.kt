@@ -7,7 +7,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
 import com.google.firebase.storage.ktx.storage
-import java.io.File
+
 
 class Storage {
 
@@ -20,7 +20,6 @@ class Storage {
 
     init {
         downloadListOfPokemons()
-
         setModelRef()
     }
 
@@ -33,6 +32,8 @@ class Storage {
 
 
     fun setModelRef() {
+
+        // Descargo la referencia del modelo
         modelRef = storage.reference.child("${pokemonSelected}.sfb")
     }
 
@@ -41,6 +42,8 @@ class Storage {
 
 
     private fun downloadListOfPokemons() {
+
+        // Descargo la lista de pokemones cargados en Firebase
 
         val listRef = storage.reference
 
@@ -53,6 +56,7 @@ class Storage {
 
                     if (nameSplited[1] == "png") {
                         item.downloadUrl.addOnSuccessListener {
+
                             listOfPokemons.add(Pokemon(nameSplited[0], it))
                         }
                     }

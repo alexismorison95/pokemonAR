@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var arFragment: ArFragment
 
     private lateinit var btnPokebola: ImageButton
-
     private lateinit var btnDeleteModel: ImageButton
     private lateinit var frameBtnDelete: FrameLayout
+    private lateinit var btnOpciones: ImageButton
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Limpio la cache
         this.cacheDir.deleteRecursively()
 
         FirebaseApp.initializeApp(this)
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnPokebola = btn_pokebola
         frameBtnDelete = frame_btn_delete
         btnDeleteModel = btn_delete_model
+        btnOpciones = btn_options
 
         recyclerView = recycler_view
 
@@ -94,6 +96,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
+        btnOpciones.setOnClickListener { onClick(btnOpciones) }
     }
 
 
@@ -107,9 +110,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         else {
             progressBarModel.visibility = View.VISIBLE
 
+            // Creo un archivo temporal
             val fileModel = File.createTempFile(storageModel.getPokemonSelected(), "sfb")
             modelsDict[storageModel.getPokemonSelected()] = fileModel
 
+            // Descargo el modelo
             storageModel.modelRef.getFile(fileModel).addOnSuccessListener {
 
                 progressBarModel.visibility = View.GONE
@@ -172,6 +177,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         transformableNode.select()
 
+        // Listener para poder seleccionar modelo y poder eliminarlo
         transformableNode.setOnTapListener { hitTestResult, _ ->
 
             frameBtnDelete.visibility = View.VISIBLE
@@ -196,12 +202,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (gridVisible) {
                     recyclerView.visibility = View.GONE
-                    gridVisible = !gridVisible
                 }
                 else {
                     recyclerView.visibility = View.VISIBLE
-                    gridVisible = !gridVisible
                 }
+
+                gridVisible = !gridVisible
+            }
+
+            // Menu de opciones
+            R.id.btn_options -> {
+                Toast.makeText(this, "Opciones", Toast.LENGTH_SHORT).show()
             }
         }
     }

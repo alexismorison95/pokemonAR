@@ -36,6 +36,7 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
                 Picasso.get()
                     .load(item.url)
                     .placeholder(R.drawable.ic_baseline_sync_24)
+                    .error(R.drawable.ic_baseline_error_outline_24)
                     .resize(100, 100)
                     .into(item_image_btn)
 
