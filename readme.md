@@ -13,9 +13,9 @@ Para poder rejecutar la App es necesario tener un celular compatible con ARCore,
 # Descargar APK
 
 Entrar al siguiente link:
-> https://github.com/alexismorison95/pokemonAR/blob/main/apk/Pokemon%20AR%20v2.apk
+> https://github.com/alexismorison95/pokemonAR/blob/main/apk/
 
-Y descargar mediante el boton 
+Click en la version mas reciente y descargar mediante el boton: 
 
     Download
 

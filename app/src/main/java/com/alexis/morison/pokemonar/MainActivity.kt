@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.pokemonar.adapters.RecyclerAdapterPokemons
 import com.alexis.morison.pokemonar.clases.Pokemon
+import com.alexis.morison.pokemonar.models.Storage
 import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
@@ -40,13 +41,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var progressBarModel: ProgressBar
 
+
     // Para poder acceder desde el Adapter
     companion object {
 
-        var storage = Firebase.storage
-
-        var pokemonModel: String = "Charmander"
-        var modelRef = storage.reference.child("Charmander.sfb")
+        val storageModel = Storage()
 
         private lateinit var recyclerView: RecyclerView
         private var gridVisible: Boolean = false
@@ -67,17 +66,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setViews()
         setListeners()
         setRecyclerView()
-
-        val listRef = storage.reference
-
-        listRef.listAll()
-            .addOnSuccessListener { (items, _) ->
-
-                items.forEach { item ->
-                    println(item.name)
-                }
-            }
     }
+
 
     private fun setViews() {
 
@@ -92,24 +82,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         progressBarModel = progress_bar_model
     }
 
+
     private fun setListeners() {
+
+        setModelOnPlaneListener()
+
+        btnPokebola.setOnClickListener { onClick(btnPokebola) }
+    }
+
+
+    private fun setModelOnPlaneListener() {
 
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
 
             val anchor = hitResult.createAnchor()
 
             // Chequeo si el modelo ya fue descargado
-            if (modelsDict.containsKey(pokemonModel)) {
+            if (modelsDict.containsKey(storageModel.getPokemonSelected())) {
 
-                modelsDict[pokemonModel]?.let { makeModel(anchor, it) }
+                modelsDict[storageModel.getPokemonSelected()]?.let { makeModel(anchor, it) }
             }
             else {
                 progressBarModel.visibility = View.VISIBLE
 
-                val fileModel = File.createTempFile(pokemonModel, "sfb")
-                modelsDict[pokemonModel] = fileModel
+                val fileModel = File.createTempFile(storageModel.getPokemonSelected(), "sfb")
+                modelsDict[storageModel.getPokemonSelected()] = fileModel
 
-                modelRef.getFile(fileModel).addOnSuccessListener {
+                storageModel.modelRef.getFile(fileModel).addOnSuccessListener {
 
                     progressBarModel.visibility = View.GONE
 
@@ -121,34 +120,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
-        btnPokebola.setOnClickListener { onClick(btnPokebola) }
     }
+
 
     private fun setRecyclerView() {
 
-        val listaPokemones = listOf(
-            Pokemon("Bellsprout", R.drawable.ic_bellsprout),
-            Pokemon("Bulbasaur", R.drawable.ic_bullbasaur),
-            Pokemon("Caterpie", R.drawable.ic_caterpie),
-            Pokemon("Charmander", R.drawable.ic_charmander),
-            Pokemon("Dratini", R.drawable.ic_dratini),
-            Pokemon("Eevee", R.drawable.ic_eevee),
-            Pokemon("Egg", R.drawable.ic_egg),
-            Pokemon("Meowth", R.drawable.ic_meowth),
-            Pokemon("Mew", R.drawable.ic_mew),
-            Pokemon("Pikachu", R.drawable.ic_pikachu_2),
-            Pokemon("Pikachu2", R.drawable.ic_pikachu_2),
-            Pokemon("Pokemon", R.drawable.ic_pokeballs),
-            Pokemon("Psyduck", R.drawable.ic_psyduck),
-            Pokemon("Rattata", R.drawable.ic_rattata),
-            Pokemon("Squirtle", R.drawable.ic_squirtle),
-            Pokemon("Weedle", R.drawable.ic_weedle),
-            Pokemon("Zubat", R.drawable.ic_zubat)
-        )
-
         viewManager = GridLayoutManager(this, 3)
-        viewAdapter = RecyclerAdapterPokemons(listaPokemones)
+        viewAdapter = RecyclerAdapterPokemons(storageModel.getListOfPokemons())
 
         recyclerView.apply {
 
@@ -157,6 +135,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             adapter = viewAdapter
         }
     }
+
 
     private fun makeModel(anchor: Anchor, file: File) {
 
@@ -176,6 +155,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 return@exceptionally null
             }
     }
+
 
     private fun placeModel(anchor: Anchor, modelRenderable: ModelRenderable) {
 
@@ -205,6 +185,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
 
     override fun onClick(view: View?) {
 

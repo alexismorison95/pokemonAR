@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.pokemonar.MainActivity
 import com.alexis.morison.pokemonar.R
 import com.alexis.morison.pokemonar.clases.Pokemon
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
 
@@ -32,19 +33,22 @@ class RecyclerAdapterPokemons(private val listaPokemones: List<Pokemon>) :
         fun bind(item: Pokemon) = with(v) {
 
                 item_text.text = item.nombre
-                item_image_btn.setImageResource(item.drawable)
+                Picasso.get()
+                    .load(item.url)
+                    .placeholder(R.drawable.ic_baseline_sync_24)
+                    .resize(100, 100)
+                    .into(item_image_btn)
 
                 item_image_btn.setOnClickListener {
 
-                    MainActivity.pokemonModel = item.nombre
-                    MainActivity.modelRef = MainActivity.storage.reference.child("${item.nombre}.sfb")
+                    MainActivity.storageModel.setPokemonSelected(item.nombre)
+                    MainActivity.storageModel.setModelRef()
 
                     MainActivity.quitarRecycler()
 
                     val toast = Toast.makeText(v.context, "Toque para agregar a ${item.nombre}", Toast.LENGTH_SHORT)
                     toast.setGravity(Gravity.CENTER, 0, 0)
                     toast.show()
-
                 }
             }
     }
