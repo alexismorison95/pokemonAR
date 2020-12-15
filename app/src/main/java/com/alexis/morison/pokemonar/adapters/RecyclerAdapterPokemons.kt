@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.pokemonar.MainActivity
 import com.alexis.morison.pokemonar.R
-import com.alexis.morison.pokemonar.clases.Pokemon
+import com.alexis.morison.pokemonar.models.Pokemon
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 

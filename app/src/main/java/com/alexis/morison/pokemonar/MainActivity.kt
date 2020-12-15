@@ -9,20 +9,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.pokemonar.adapters.RecyclerAdapterPokemons
-import com.alexis.morison.pokemonar.clases.Pokemon
-import com.alexis.morison.pokemonar.models.Storage
+import com.alexis.morison.pokemonar.controllers.Storage
 import com.google.ar.core.Anchor
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
-import com.google.firebase.storage.ktx.component1
-import com.google.firebase.storage.ktx.component2
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
