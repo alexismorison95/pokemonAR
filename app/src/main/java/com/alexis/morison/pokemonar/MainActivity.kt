@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var btnPokebola: ImageButton
     private lateinit var btnDeleteModel: ImageButton
-    private lateinit var frameBtnDelete: FrameLayout
     private lateinit var btnOpciones: ImageButton
+
+    private lateinit var layoutOpciones: LinearLayout
+    private var layoutView: Boolean = false
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -72,9 +74,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         arFragment = ar_fragment_view as ArFragment
 
         btnPokebola = btn_pokebola
-        frameBtnDelete = frame_btn_delete
         btnDeleteModel = btn_delete_model
         btnOpciones = btn_options
+        layoutOpciones = layout_menu_options
 
         recyclerView = recycler_view
 
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
 
             val anchor = hitResult.createAnchor()
-            setModelOnPlane(anchor)
+            loadModel(anchor)
         }
 
         btnPokebola.setOnClickListener { onClick(btnPokebola) }
@@ -95,7 +97,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private fun setModelOnPlane(anchor: Anchor) {
+    private fun loadModel(anchor: Anchor) {
 
         // Chequeo si el modelo ya fue descargado
         if (modelsDict.containsKey(storageModel.getPokemonSelected())) {
@@ -175,14 +177,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Listener para poder seleccionar modelo y poder eliminarlo
         transformableNode.setOnTapListener { hitTestResult, _ ->
 
-            frameBtnDelete.visibility = View.VISIBLE
+            btnDeleteModel.visibility = View.VISIBLE
 
             btnDeleteModel.setOnClickListener {
 
                 val nodeToRemove = hitTestResult.node
                 anchorNode.removeChild(nodeToRemove)
 
-                frameBtnDelete.visibility = View.GONE
+                btnDeleteModel.visibility = View.GONE
             }
         }
     }
@@ -201,13 +203,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 else {
                     recyclerView.visibility = View.VISIBLE
                 }
-
                 gridVisible = !gridVisible
             }
 
             // Menu de opciones
             R.id.btn_options -> {
-                Toast.makeText(this, "Opciones", Toast.LENGTH_SHORT).show()
+
+                if (layoutView) {
+                    layoutOpciones.visibility = View.GONE
+                    btnOpciones.setImageResource(R.drawable.ic_baseline_more_vert_24)
+                }
+                else {
+                    layoutOpciones.visibility = View.VISIBLE
+                    btnOpciones.setImageResource(R.drawable.ic_baseline_close_24)
+                }
+                layoutView = !layoutView
             }
         }
     }
