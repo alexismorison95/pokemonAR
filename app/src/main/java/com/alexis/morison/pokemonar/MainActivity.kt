@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnDeleteModel: ImageButton
     private lateinit var btnOpciones: ImageButton
 
-    private lateinit var layoutOpciones: LinearLayout
+    private lateinit var layoutOpciones: GridLayout
     private var layoutView: Boolean = false
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    var columnWidth = -1
 
     private val modelsDict = hashMapOf<String, File>()
 
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnPokebola = btn_pokebola
         btnDeleteModel = btn_delete_model
         btnOpciones = btn_options
-        layoutOpciones = layout_menu_options
+        layoutOpciones = findViewById(R.id.layout_menu_options)
 
         recyclerView = recycler_view
 
@@ -126,9 +127,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    private fun calcularColumnas(): Int {
+
+        val displayMetrics = this.resources.displayMetrics
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+
+        return (dpWidth / 100).toInt()
+    }
+
+
     private fun setRecyclerView() {
 
-        viewManager = GridLayoutManager(this, 3)
+        viewManager = GridLayoutManager(this, calcularColumnas())
         viewAdapter = RecyclerAdapterPokemons(storageModel.getListOfPokemons())
 
         recyclerView.apply {
@@ -202,6 +212,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 else {
                     recyclerView.visibility = View.VISIBLE
+
+                    layoutOpciones.visibility = View.GONE
+                    btnOpciones.setImageResource(R.drawable.ic_baseline_more_vert_24)
+                    layoutView = false
                 }
                 gridVisible = !gridVisible
             }
@@ -216,6 +230,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 else {
                     layoutOpciones.visibility = View.VISIBLE
                     btnOpciones.setImageResource(R.drawable.ic_baseline_close_24)
+
+                    recyclerView.visibility = View.GONE
+                    gridVisible = false
                 }
                 layoutView = !layoutView
             }
