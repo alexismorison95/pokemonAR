@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/MnuOpc1"
+        android:title="Actualizar pokemones"
+        android:icon="@android:drawable/ic_menu_preferences" />
+    <item
+        android:id="@+id/MnuOpc2"
+        android:title="Grabar pantalla"
+        android:icon="@android:drawable/ic_menu_compass" />
+    <item
+        android:id="@+id/MnuOpc3"
+        android:title="Captura de pantalla"
+        android:icon="@android:drawable/ic_menu_agenda" />
+
+    <item
+        android:id="@+id/MnuOpc4"
+        android:title="Configuraciones"
+        android:icon="@android:drawable/ic_menu_agenda" />
+</menu>

@@ -3,7 +3,7 @@ package com.alexis.morison.pokemonar
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,16 +20,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, MenuItem.OnMenuItemClickListener,
+    PopupMenu.OnMenuItemClickListener {
 
     private lateinit var arFragment: ArFragment
 
     private lateinit var btnPokebola: ImageButton
     private lateinit var btnDeleteModel: ImageButton
     private lateinit var btnOpciones: ImageButton
-
-    private lateinit var layoutOpciones: GridLayout
-    private var layoutView: Boolean = false
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -77,7 +75,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnPokebola = btn_pokebola
         btnDeleteModel = btn_delete_model
         btnOpciones = btn_options
-        layoutOpciones = findViewById(R.id.layout_menu_options)
 
         recyclerView = recycler_view
 
@@ -213,9 +210,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 else {
                     recyclerView.visibility = View.VISIBLE
 
-                    layoutOpciones.visibility = View.GONE
+                    //layoutOpciones.visibility = View.GONE
                     btnOpciones.setImageResource(R.drawable.ic_baseline_more_vert_24)
-                    layoutView = false
+                    //layoutView = false
                 }
                 gridVisible = !gridVisible
             }
@@ -223,20 +220,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             // Menu de opciones
             R.id.btn_options -> {
 
-                if (layoutView) {
-                    layoutOpciones.visibility = View.GONE
-                    btnOpciones.setImageResource(R.drawable.ic_baseline_more_vert_24)
-                }
-                else {
-                    layoutOpciones.visibility = View.VISIBLE
-                    btnOpciones.setImageResource(R.drawable.ic_baseline_close_24)
+                PopupMenu(this, view).apply {
 
-                    recyclerView.visibility = View.GONE
-                    gridVisible = false
+                    setOnMenuItemClickListener(this@MainActivity)
+                    inflate(R.menu.menu_options)
+                    show()
                 }
-                layoutView = !layoutView
             }
         }
+    }
+
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        TODO("Not yet implemented")
     }
 
 
